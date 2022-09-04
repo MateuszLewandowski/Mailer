@@ -13,7 +13,7 @@ class SendEmailRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class SendEmailRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'to' => 'required|email',
+            'name' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'required|string|email',
+            'text' => 'required|string',
+            'approvals' => 'array|nullable',
+            'approvals.*' => 'string|distinct',
         ];
     }
 }
