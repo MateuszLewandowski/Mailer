@@ -4,15 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class VerifyIPAddress
+class RequireSSL
 {
-    private const ACCEPTABLE = [
-        '127.0.0.1', '::1',
-    ];
-
     /**
      * Handle an incoming request.
      *
@@ -22,8 +18,12 @@ class VerifyIPAddress
      */
     public function handle(Request $request, Closure $next)
     {
-        return in_array($request->ip(), self::ACCEPTABLE)
-            ? $next($request)
-            : throw new HttpException(Response::HTTP_UNPROCESSABLE_ENTITY);
+        if (!$request->secure() and app()->environment('production')) {
+            throw new HttpException(
+                statusCode: Response::HTTP_FORBIDDEN,
+                message: __('auth.api.incorrect')
+            );
+        }
+        return $next($request);
     }
 }
