@@ -13,14 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('meta', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('request_id')->nullable();
             $table->ipAddress()->nullable()->default(null);
-            $table->string('user_agent', 128)->nullable()->default(null);
-            $table->string('fingerprint', 128)->nullable()->default(null);
+            $table->string('user_agent')->nullable()->default(null);
+            $table->string('fingerprint')->nullable()->default(null);
             $table->integer('content_size')->nullable()->default(null);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('sent_at')->nullable()->default(null);
+        });
+
+        Schema::table('meta', function ($table) {
+            $table->foreign('request_id')->references('id')->on('requests')->onDelete('set null');
         });
     }
 
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('meta');
     }
 };
