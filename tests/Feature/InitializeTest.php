@@ -10,9 +10,10 @@ use Tests\Traits\HeaderBuilder;
 
 class InitializeTest extends TestCase
 {
-    use HeaderBuilder;
+    use HeaderBuilder, RefreshDatabase;
 
     private string $uri = 'api/ms/email/initialize';
+
     private const OPERATIONS = [
         1 => 'ADDITION',
         2 => 'SUBTRACTION',
