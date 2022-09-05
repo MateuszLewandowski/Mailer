@@ -2,17 +2,19 @@
 
 namespace App\Services;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Interfaces\MetaInterface;
 use App\Models\Meta;
+use Illuminate\Foundation\Http\FormRequest;
 use Throwable;
 
-final class MetaService
+final class MetaService implements MetaInterface
 {
     public function __construct(
     ) {
     }
 
-    public function store(FormRequest $request, string $id): Meta {
+    public function store(FormRequest $request, string $id): Meta
+    {
         try {
             return Meta::create([
                 'request_id' => $id,
@@ -25,11 +27,12 @@ final class MetaService
         }
     }
 
-    public function update(int $id, int $content_size): Meta {
+    public function update(int $id, int $content_size): bool
+    {
         try {
             return Meta::where('id', '=', $id)
                 ->update([
-                    'content_size' => $content_size
+                    'content_size' => $content_size,
                 ]);
         } catch (Throwable $e) {
             throw $e;
