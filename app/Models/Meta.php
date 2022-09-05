@@ -11,6 +11,6 @@ class Meta extends Model
     protected $table = 'meta';
 
     protected $fillable = [
-        'request_id', 'ip_address', 'user_agent', 'fingerprint', 'content_size'
+        'request_id', 'ip_address', 'user_agent', 'fingerprint', 'content_size',
     ];
 }

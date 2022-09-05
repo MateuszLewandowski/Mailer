@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use App\Actions\ValidateResponseCodeAction;
+use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Http\JsonResponse;
-use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class ResponseMacroServiceProvider extends ServiceProvider
 {
@@ -34,12 +34,13 @@ class ResponseMacroServiceProvider extends ServiceProvider
                 'ok' => ($status > 100 and $status < 400) ? true : false,
                 'timestamp' => Carbon::now()->format('Y-m-d H:i:s'),
             ];
-            if (!is_null($message)) {
+            if (! is_null($message)) {
                 $response['message'] = $message;
             }
-            if (!empty($data)) {
+            if (! empty($data)) {
                 $response['data'] = $data;
             }
+
             return response()->json($response, $status, $headers);
         });
 

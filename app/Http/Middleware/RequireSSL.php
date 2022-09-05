@@ -18,12 +18,13 @@ class RequireSSL
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->secure() and app()->environment('production')) {
+        if (! $request->secure() and app()->environment('production')) {
             throw new HttpException(
                 statusCode: Response::HTTP_FORBIDDEN,
                 message: __('auth.api.incorrect')
             );
         }
+
         return $next($request);
     }
 }

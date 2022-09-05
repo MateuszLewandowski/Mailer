@@ -49,7 +49,7 @@ class Kernel extends HttpKernel
         'authorized' => [
             \App\Http\Middleware\VerifyRequestToken::class,
             \App\Http\Middleware\VerifyCaptcha::class,
-        ]
+        ],
     ];
 
     /**

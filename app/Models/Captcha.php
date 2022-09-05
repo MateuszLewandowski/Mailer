@@ -11,8 +11,11 @@ class Captcha extends Model
     protected $table = 'captcha';
 
     public const ADDITION = 1;
+
     public const SUBTRACTION = 2;
+
     public const DIVISION = 3;
+
     public const MULTIPLICATION = 4;
 
     protected $fillable = [
