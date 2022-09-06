@@ -43,7 +43,6 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\RequireSSL::class,
             \App\Http\Middleware\VerifyApiToken::class,
-            \App\Http\Middleware\VerifyIPAddress::class,
         ],
 
         'authorized' => [
